@@ -120,11 +120,9 @@
       color: var(--text);
     }
 
-    .qr-code img {
-      width: 180px;
-      height: 180px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #e91e63aa;
+    .music-player {
+      width: 100%;
+      height: 80px;
       margin-bottom: 15px;
     }
   </style>
@@ -137,9 +135,8 @@
     <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
     <p><strong>Mas antes de começar, solte o som aí!</strong></p>
 
-    <div class="qr-code">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO&size=180x180" alt="QR Code para Spotify - É Amor Jorge & Mateus" />
-    </div>
+    <!-- Player de Música -->
+    <iframe class="music-player" src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
 
     <p><strong><a href="https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO" target="_blank" rel="noopener noreferrer">Clique aqui para ouvir "É Amor" no Spotify 💗</a></strong></p>
 
@@ -178,7 +175,6 @@
     const finalMessage = document.getElementById('finalMessage');
     const finalScore = document.getElementById('finalScore');
 
-    // Definindo as questões do quiz
     const questions = [
       {
         question: "Qual item não faltaria no meu café da manhã?",
@@ -253,4 +249,15 @@
       nextBtn.classList.remove('hidden');
     }
 
-    // Função para mostrar
+    // Função para mostrar resultado
+    nextBtn.addEventListener('click', () => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    });
+
+    function showResult() {
+      quiz.classList.add('
