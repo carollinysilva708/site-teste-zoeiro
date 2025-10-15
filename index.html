@@ -80,6 +80,38 @@
       height: 80px;
       margin-bottom: 15px;
     }
+
+    .quiz-question {
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .answers {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px 0;
+    }
+
+    .answers li {
+      background: #ffe6f0;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      padding: 12px 16px;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+      font-weight: 500;
+    }
+
+    .answers li:hover {
+      border-color: #ff4d94;
+    }
+
+    .answers li.selected {
+      border-color: #ff1a75;
+      background: #ffccd9;
+    }
   </style>
 </head>
 <body>
@@ -196,46 +228,22 @@
 
     // Função para selecionar uma resposta
     function selectAnswer(li, isCorrect) {
+      // Remove seleção anterior
       const selectedAnswer = li;
       selectedAnswer.classList.add('selected');
+
       if (isCorrect) {
         score++;
       }
+
+      // Mostrar botão de próxima pergunta
       nextBtn.classList.remove('hidden');
     }
 
-    // Função para mostrar resultado
+    // Função para mostrar a próxima pergunta ou o resultado final
     nextBtn.addEventListener('click', () => {
       currentQuestionIndex++;
       if (currentQuestionIndex < questions.length) {
         showQuestion();
+        nextBtn.classList.add('hidden');
       } else {
-        showResult();
-      }
-    });
-
-    function showResult() {
-      quiz.classList.add('hidden');
-      result.classList.remove('hidden');
-      scoreText.textContent = `Você acertou ${score} de ${questions.length} perguntas!`;
-
-      nextBtn.classList.add('hidden');
-    }
-
-    // Função para exibir a mensagem final
-    finalBtn.addEventListener('click', () => {
-      result.classList.add('hidden');
-      finalMessage.classList.remove('hidden');
-      finalScore.textContent = `Sua pontuação final foi: ${score}`;
-    });
-
-    // Função para resetar o estado do quiz
-    function resetState() {
-      nextBtn.classList.add('hidden');
-      const selectedAnswers = document.querySelectorAll('.answers li.selected');
-      selectedAnswers.forEach(answer => answer.classList.remove('selected'));
-    }
-  </script>
-
-</body>
-</html>
