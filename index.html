@@ -31,18 +31,18 @@
     #player {
       width: 50px;
       height: 50px;
-      background-color: red; /* Personagem Mario */
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/9/99/Super_Mario_Bros._Mario.png');
+      background-size: cover;
       position: absolute;
-      bottom: 50px; /* Posição na base da tela */
+      bottom: 50px;
       left: 50px;
-      border-radius: 5px;
     }
 
     .coin {
       width: 30px;
       height: 30px;
-      background-color: yellow; /* Moeda */
-      border-radius: 50%;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Coin_%28gold%29.png/800px-Coin_%28gold%29.png');
+      background-size: cover;
       position: absolute;
       animation: fall 3s infinite;
     }
@@ -64,6 +64,15 @@
       bottom: 0;
     }
 
+    .score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 2rem;
+      color: white;
+      font-weight: bold;
+    }
+
     .hidden {
       display: none;
     }
@@ -74,17 +83,21 @@
   <div id="gameContainer">
     <div id="player"></div>
     <div class="platform"></div>
+    <div class="score" id="score">Pontuação: 0</div>
   </div>
 
   <script>
     const player = document.getElementById('player');
     const gameContainer = document.getElementById('gameContainer');
+    const scoreElement = document.getElementById('score');
     let isJumping = false;
     let score = 0;
 
-    // Movimentos do jogador
+    // Velocidade do jogador e da moeda
     let playerX = 50;  // Posição inicial X
-    const moveSpeed = 5;  // Velocidade de movimento
+    let playerY = 50;  // Posição inicial Y (base da tela)
+    const moveSpeed = 10;  // Velocidade aumentada
+    const jumpSpeed = 20;
 
     // Função para mover o jogador
     function movePlayer(event) {
@@ -114,8 +127,8 @@
           clearInterval(jumpInterval);
           fall();
         }
-        jumpHeight += 5;
-        player.style.bottom = 50 + jumpHeight + 'px';
+        jumpHeight += jumpSpeed;
+        player.style.bottom = playerY + jumpHeight + 'px';
       }, 20);
     }
 
@@ -127,8 +140,8 @@
           clearInterval(fallInterval);
           isJumping = false;
         }
-        fallHeight -= 5;
-        player.style.bottom = 50 + fallHeight + 'px';
+        fallHeight -= jumpSpeed;
+        player.style.bottom = playerY + fallHeight + 'px';
       }, 20);
     }
 
@@ -143,7 +156,7 @@
       const coinInterval = setInterval(() => {
         if (isCollision(player, coin)) {
           score++;
-          console.log("Pontuação: " + score);
+          scoreElement.textContent = `Pontuação: ${score}`;
           coin.remove(); // Remove a moeda ao pegar
         }
       }, 10);
