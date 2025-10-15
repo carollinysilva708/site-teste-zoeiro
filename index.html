@@ -6,8 +6,8 @@
 <title>Teste Romântico do Player 2</title>
 <style>
   :root {
-    --bg: #0b0f1a;
-    --panel: #0f1724;
+    --bg: #f8c8dc; /* rosa claro */
+    --panel: #f4b6d3;
     --accent: #7c3aed;
     --muted: #cfd6e4;
     --white-dark: #e0e0e0; /* branco mais escuro para leitura */
@@ -24,7 +24,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at 20% 10%, #0f1b2d 0%, #071021 40%, #00080c 100%);
+    background: var(--bg);
     color: var(--white-dark);
     padding: 24px;
   }
@@ -32,25 +32,27 @@
     width: 760px;
     max-width: 96%;
     border-radius: 12px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-    box-shadow: 0 20px 60px rgba(2,6,23,0.8);
+    background: var(--panel);
+    box-shadow: 0 20px 60px rgba(2,6,23,0.3);
     overflow: hidden;
     padding: 28px;
+    text-align: center;
   }
   h1, h2, h3, p {
     margin: 0 0 1rem 0;
   }
   h1 {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 700;
     color: var(--button-bg);
-    text-align: center;
   }
-  .intro {
+  .intro, .final-message, .result, #quizSection {
     font-size: 1.2rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
     color: var(--white-dark);
+  }
+  #quizSection {
+    display: none;
+    text-align: left;
   }
   .question {
     margin-bottom: 20px;
@@ -71,13 +73,12 @@
     cursor: pointer;
     user-select: none;
     font-size: 1rem;
+    color: var(--white-dark);
   }
   input[type="radio"] {
     margin-right: 8px;
   }
   button {
-    display: block;
-    margin: 20px auto 0 auto;
     background-color: var(--button-bg);
     color: var(--button-text);
     border: none;
@@ -91,16 +92,6 @@
   button:hover {
     background-color: #ff85c1;
   }
-  .result, .final-message {
-    text-align: center;
-    font-size: 1.3rem;
-    margin-top: 24px;
-    color: var(--white-dark);
-  }
-  .final-message {
-    font-weight: 600;
-    margin-top: 12px;
-  }
   .choice-buttons {
     display: flex;
     justify-content: center;
@@ -111,76 +102,82 @@
     width: 140px;
   }
   audio {
-    display: block;
-    margin: 0 auto 24px auto;
     width: 100%;
     max-width: 600px;
+    border-radius: 8px;
+    margin: 16px auto 24px auto;
     outline: none;
   }
 </style>
 </head>
 <body>
   <div class="card" role="main">
-    <h1>Teste do Player 2 ❤️</h1>
-    <p class="intro">Esse é um teste para ver se você serve para me amar a vida toda</p>
+    <h1>TESTANDO NERDOLA</h1>
+    <p class="intro">Esse é um teste para ver se você serve para me amar a vida toda<br>Mas antes de começar, solte o som aí 🎵</p>
 
     <audio id="spotifyAudio" controls autoplay loop>
       <source src="https://p.scdn.co/mp3-preview/5d84e2d7e3e236880264ce79d1b14d15e7f9ad61?cid=774b29d4f13844c495f206cafdad9c86" type="audio/mpeg">
       Seu navegador não suporta o elemento de áudio.
     </audio>
 
-    <form id="quizForm" aria-label="Quiz de compatibilidade romântica">
-      <div class="question" data-correct="Nestow">
-        <p class="question-text">1. Qual item não faltaria no meu café da manhã?</p>
-        <ul class="options">
-          <li><label><input type="radio" name="q1" value="Mucilon" required> Mucilon</label></li>
-          <li><label><input type="radio" name="q1" value="Nestow"> Nestow</label></li>
-          <li><label><input type="radio" name="q1" value="Sucrilhos"> Sucrilhos</label></li>
-          <li><label><input type="radio" name="q1" value="Farinha de Aveia"> Farinha de Aveia</label></li>
-        </ul>
+    <button id="startBtn">Já estou ouvindo</button>
+
+    <section id="quizSection" aria-label="Quiz de compatibilidade romântica">
+      <form id="quizForm">
+        <div class="question" data-correct="Nestow">
+          <p class="question-text">1. Qual item não faltaria no meu café da manhã?</p>
+          <ul class="options">
+            <li><label><input type="radio" name="q1" value="Mucilon" required> Mucilon</label></li>
+            <li><label><input type="radio" name="q1" value="Nestow"> Nestow</label></li>
+            <li><label><input type="radio" name="q1" value="Sucrilhos"> Sucrilhos</label></li>
+            <li><label><input type="radio" name="q1" value="Farinha de Aveia"> Farinha de Aveia</label></li>
+          </ul>
+        </div>
+
+        <div class="question" data-correct="Rosa claro">
+          <p class="question-text">2. Quais das cores eu mais gosto no momento?</p>
+          <ul class="options">
+            <li><label><input type="radio" name="q2" value="Rosa claro" required> Rosa claro</label></li>
+            <li><label><input type="radio" name="q2" value="Branco"> Branco</label></li>
+            <li><label><input type="radio" name="q2" value="Preto"> Preto</label></li>
+            <li><label><input type="radio" name="q2" value="Turquesa"> Turquesa</label></li>
+            <li><label><input type="radio" name="q2" value="Azul"> Azul</label></li>
+          </ul>
+        </div>
+
+        <div class="question" data-correct="Novela">
+          <p class="question-text">3. Top coisas que nunca deixaria de assistir?</p>
+          <ul class="options">
+            <li><label><input type="radio" name="q3" value="Novela" required> Novela</label></li>
+            <li><label><input type="radio" name="q3" value="Serie"> Série</label></li>
+            <li><label><input type="radio" name="q3" value="Filmes"> Filmes</label></li>
+            <li><label><input type="radio" name="q3" value="Desenhos animados"> Desenhos animados</label></li>
+            <li><label><input type="radio" name="q3" value="Anime"> Anime</label></li>
+          </ul>
+        </div>
+
+        <button type="submit">Enviar respostas</button>
+      </form>
+
+      <div id="scoreSection" class="result" style="display:none;">
+        <p id="scoreText"></p>
+        <p id="finalQuestion">Eu já te quero para vida toda mesmo! Topa ser meu player dois forever?</p>
+        <div class="choice-buttons">
+          <button id="btnYes">Yes</button>
+          <button id="btnClaro">Claro que yes</button>
+        </div>
       </div>
 
-      <div class="question" data-correct="Rosa claro">
-        <p class="question-text">2. Quais das cores eu mais gosto no momento?</p>
-        <ul class="options">
-          <li><label><input type="radio" name="q2" value="Rosa claro" required> Rosa claro</label></li>
-          <li><label><input type="radio" name="q2" value="Branco"> Branco</label></li>
-          <li><label><input type="radio" name="q2" value="Preto"> Preto</label></li>
-          <li><label><input type="radio" name="q2" value="Turquesa"> Turquesa</label></li>
-          <li><label><input type="radio" name="q2" value="Azul"> Azul</label></li>
-        </ul>
+      <div id="loveMessage" class="final-message" style="display:none;">
+        <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.<br>Te amo e te honro, branquelo! 💖</p>
+        <p id="finalScoreSummary"></p>
       </div>
-
-      <div class="question" data-correct="Novela">
-        <p class="question-text">3. Top coisas que nunca deixaria de assistir?</p>
-        <ul class="options">
-          <li><label><input type="radio" name="q3" value="Novela" required> Novela</label></li>
-          <li><label><input type="radio" name="q3" value="Serie"> Série</label></li>
-          <li><label><input type="radio" name="q3" value="Filmes"> Filmes</label></li>
-          <li><label><input type="radio" name="q3" value="Desenhos animados"> Desenhos animados</label></li>
-          <li><label><input type="radio" name="q3" value="Anime"> Anime</label></li>
-        </ul>
-      </div>
-
-      <button type="submit">Enviar respostas</button>
-    </form>
-
-    <div id="scoreSection" class="result" style="display:none;">
-      <p id="scoreText"></p>
-      <p id="finalQuestion">Eu já te quero para vida toda mesmo! Topa ser meu player dois forever?</p>
-      <div class="choice-buttons">
-        <button id="btnYes">Yes</button>
-        <button id="btnClaro">Claro que yes</button>
-      </div>
-    </div>
-
-    <div id="loveMessage" class="final-message" style="display:none;">
-      <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.<br>Te amo e te honro, branquelo! 💖</p>
-      <p id="finalScoreSummary"></p>
-    </div>
+    </section>
   </div>
 
 <script>
+  const startBtn = document.getElementById('startBtn');
+  const quizSection = document.getElementById('quizSection');
   const quizForm = document.getElementById('quizForm');
   const scoreSection = document.getElementById('scoreSection');
   const scoreText = document.getElementById('scoreText');
@@ -188,6 +185,22 @@
   const loveMessage = document.getElementById('loveMessage');
   const btnYes = document.getElementById('btnYes');
   const btnClaro = document.getElementById('btnClaro');
+  const audio = document.getElementById('spotifyAudio');
+
+  startBtn.addEventListener('click', () => {
+    // Esconde introdução
+    startBtn.style.display = 'none';
+    document.querySelector('.intro').style.display = 'none';
+    document.querySelector('h1').style.display = 'none';
+
+    // Exibe quiz
+    quizSection.style.display = 'block';
+
+    // Garante que o áudio esteja tocando
+    audio.play().catch(() => {
+      // Caso navegador bloqueie autoplay, pode clicar no startBtn para liberar som
+    });
+  });
 
   quizForm.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -206,7 +219,7 @@
 
     const percent = Math.round((correctAnswers / total) * 100);
     scoreText.textContent = `Você acertou ${correctAnswers} de ${total} perguntas (${percent}%).`;
-    
+
     quizForm.style.display = 'none';
     scoreSection.style.display = 'block';
 
