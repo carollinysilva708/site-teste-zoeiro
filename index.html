@@ -132,7 +132,10 @@
     <h1>TESTANDO NERDOLA</h1>
     <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
     <p><strong>Mas antes de começar, solte o som aí!</strong></p>
-    <audio id="music" src="https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86" preload="auto" controls></audio>
+    
+    <!-- Player do Spotify no formato de iFrame -->
+    <iframe src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    
     <button id="startListeningBtn">Já estou ouvindo</button>
   </div>
 
@@ -207,7 +210,6 @@
   let score = 0;
 
   startListeningBtn.addEventListener('click', () => {
-    music.play();
     intro.classList.add('hidden');
     quiz.classList.remove('hidden');
     showQuestion();
@@ -235,14 +237,4 @@
     nextBtn.classList.add('hidden');
     const currentQuestion = questions[currentQuestionIndex];
     const questionElement = document.createElement('div');
-    questionElement.classList.add('quiz-question');
-    questionElement.textContent = currentQuestion.question;
-    questionContainer.appendChild(questionElement);
-
-    const answersList = document.createElement('ul');
-    answersList.classList.add('answers');
-
-    currentQuestion.answers.forEach(answer => {
-      const li = document.createElement('li');
-      li.textContent = answer.text;
-      li.addEventListener('click', ()
+    questionElement.classList
