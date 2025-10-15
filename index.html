@@ -65,6 +65,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+    margin: 0 8px 12px 8px;
   }
 
   button:hover {
@@ -119,6 +120,11 @@
     margin-top: 16px;
     color: var(--text);
   }
+
+  #finalAnswerButtons button {
+    margin: 0 12px;
+    min-width: 120px;
+  }
 </style>
 </head>
 <body>
@@ -126,7 +132,7 @@
     <h1>TESTANDO NERDOLA</h1>
     <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
     <p><strong>Mas antes de começar, solte o som aí!</strong></p>
-    <audio id="music" src="https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86" preload="auto"></audio>
+    <audio id="music" src="https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86" preload="auto" controls></audio>
     <button id="startListeningBtn">Já estou ouvindo</button>
   </div>
 
@@ -137,8 +143,11 @@
 
   <div class="container hidden" id="result">
     <div class="result-text" id="scoreText"></div>
-    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever? <strong>Yes</strong> ou <strong>Claro que yes?</strong></p>
-    <button id="finalBtn">Mostrar mensagem especial</button>
+    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever?</p>
+    <div id="finalAnswerButtons">
+      <button id="btnYes">Yes</button>
+      <button id="btnClaro">Claro que yes?</button>
+    </div>
   </div>
 
   <div class="container hidden" id="finalMessage">
@@ -156,7 +165,9 @@
   const nextBtn = document.getElementById('nextBtn');
   const result = document.getElementById('result');
   const scoreText = document.getElementById('scoreText');
-  const finalBtn = document.getElementById('finalBtn');
+  const finalAnswerButtons = document.getElementById('finalAnswerButtons');
+  const btnYes = document.getElementById('btnYes');
+  const btnClaro = document.getElementById('btnClaro');
   const finalMessage = document.getElementById('finalMessage');
   const finalScore = document.getElementById('finalScore');
 
@@ -211,10 +222,12 @@
     }
   });
 
-  finalBtn.addEventListener('click', () => {
-    result.classList.add('hidden');
-    finalMessage.classList.remove('hidden');
-    finalScore.textContent = `Você acertou ${score} de ${questions.length} perguntas (${Math.round((score / questions.length) * 100)}%).`;
+  btnYes.addEventListener('click', () => {
+    showFinalMessage();
+  });
+
+  btnClaro.addEventListener('click', () => {
+    showFinalMessage();
   });
 
   function showQuestion() {
@@ -232,36 +245,4 @@
     currentQuestion.answers.forEach(answer => {
       const li = document.createElement('li');
       li.textContent = answer.text;
-      li.addEventListener('click', () => selectAnswer(li, answer.correct));
-      answersList.appendChild(li);
-    });
-
-    questionContainer.appendChild(answersList);
-  }
-
-  function resetState() {
-    nextBtn.classList.add('hidden');
-    while (questionContainer.firstChild) {
-      questionContainer.removeChild(questionContainer.firstChild);
-    }
-  }
-
-  function selectAnswer(selectedLi, isCorrect) {
-    const answers = questionContainer.querySelectorAll('li');
-    answers.forEach(li => {
-      li.classList.remove('selected');
-      li.style.pointerEvents = 'none'; // bloqueia múltiplos cliques
-    });
-    selectedLi.classList.add('selected');
-    if (isCorrect) score++;
-    nextBtn.classList.remove('hidden');
-  }
-
-  function showResult() {
-    quiz.classList.add('hidden');
-    scoreText.textContent = `Você acertou ${Math.round((score / questions.length) * 100)}% das perguntas!`;
-    result.classList.remove('hidden');
-  }
-</script>
-</body>
-</html>
+      li.addEventListener('click', ()
