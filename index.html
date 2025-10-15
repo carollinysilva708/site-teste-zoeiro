@@ -1,132 +1,108 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Uma mensagem pra você 💖</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #ffcde5, #ffe5f7);
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      overflow-x: hidden;
-    }
-
-    h1 {
-      font-size: 2.2em;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 1.2em;
-      margin: 0 20px 20px;
-      color: #fffafc;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .qr-code {
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      margin: 20px auto;
-    }
-
-    button {
-      background-color: #ff70a6;
-      border: none;
-      padding: 12px 20px;
-      font-size: 1em;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-      margin-top: 15px;
-    }
-
-    button:hover {
-      background-color: #ff3f7f;
-    }
-
-    .message {
-      animation: fadeIn 1s ease forwards;
-      padding: 0 20px;
-      max-width: 600px;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .heart {
-      font-size: 48px;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.1); }
-    }
-
-    a.spotify-link {
-      display: block;
-      margin-top: 10px;
-      font-size: 0.9em;
-      color: white;
-      text-decoration: underline;
-    }
-
-    .intro {
-      transition: opacity 0.4s ease;
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Armadilha Romântica</title>
+<style>
+  body {
+    background: #fff0f6;
+    color: #c2185b;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 1.4rem;
+    max-width: 450px;
+    text-align: center;
+    margin: 10px 0 30px;
+  }
+  .qr-code img {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #e91e63aa;
+    margin-bottom: 15px;
+  }
+  a.spotify-link {
+    font-size: 1.2rem;
+    color: #e91e63;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 30px;
+  }
+  a.spotify-link:hover {
+    text-decoration: underline;
+  }
+  button {
+    background-color: #e91e63;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #ad1457;
+  }
+  .message {
+    margin-top: 40px;
+    font-size: 1.5rem;
+    max-width: 500px;
+    text-align: center;
+    display: none;
+    color: #880e4f;
+    font-weight: 600;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+</style>
 </head>
 <body>
 
-  <div id="intro" class="intro">
-    <h1>Antes de tudo…</h1>
-    <p>Dá o play aí 🎶</p>
+<h1>Você caiu na minha armadilha romântica, nerdola 😎</h1>
+<p>Escaneie o QR code ou clique no link para ouvir a música. Só prossegue quando estiver ouvindo, hein!</p>
 
-    <div class="qr-code">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4V7ZZlcLGt1k5YTXZTSEgE&size=180x180" alt="QR Code para Spotify">
-    </div>
+<div class="qr-code">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO&size=180x180" alt="QR Code para Spotify - É Amor Jorge & Mateus" />
+</div>
 
-    <a class="spotify-link" href="https://open.spotify.com/track/4V7ZZlcLGt1k5YTXZTSEgE" target="_blank">
-      Ou clique aqui se estiver no PC 💗
-    </a>
+<a class="spotify-link" href="https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO" target="_blank" rel="noopener noreferrer">
+  Clique aqui para ouvir "É Amor" no Spotify 💗
+</a>
 
-    <button id="revealBtn">Já estou ouvindo 💕</button>
-  </div>
+<button id="proceedBtn">Já estou ouvindo</button>
 
-  <div id="message" class="hidden message">
-    <div class="heart">💖</div>
-    <h2>Você caiu na minha armadilha romântica, nerdola 😎</h2>
-    <p>Quer ser meu player 2 pra sempre? 🎮💘</p>
-    <p>Brincadeira à parte, só fiz isso pra te dizer o quanto te amo e o quanto me sinto amada por você. 💞</p>
-    <p>Te amo e te honro, meu branquelo 💗</p>
-  </div>
+<div class="message" id="finalMessage">
+Você caiu na minha armadilha romântica, nerdola 😎
+Quer ser meu player 2 pra sempre?
 
-  <script>
-    const btn = document.getElementById('revealBtn');
-    const msg = document.getElementById('message');
-    const intro = document.getElementById('intro');
+Brincadeira a parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.  
+Te amo e te honro, branquelo 💖
+</div>
 
-    btn.addEventListener('click', () => {
-      intro.style.display = 'none';
-      msg.classList.remove('hidden');
-    });
-  </script>
+<script>
+  const btn = document.getElementById('proceedBtn');
+  const msg = document.getElementById('finalMessage');
+
+  btn.addEventListener('click', () => {
+    btn.style.display = 'none';
+    msg.style.display = 'block';
+  });
+</script>
 
 </body>
 </html>
