@@ -228,9 +228,7 @@
 
     // Função para selecionar uma resposta
     function selectAnswer(li, isCorrect) {
-      // Remove seleção anterior
-      const selectedAnswer = li;
-      selectedAnswer.classList.add('selected');
+      li.classList.add('selected');
 
       if (isCorrect) {
         score++;
@@ -257,5 +255,4 @@
       result.classList.remove('hidden');
       scoreText.textContent = `Sua pontuação: ${score} de ${questions.length}`;
 
-      // Exibindo a mensagem de feedback com base na pontuação
-      if
+      // Exibindo a mensagem
