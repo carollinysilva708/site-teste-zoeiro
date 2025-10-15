@@ -3,256 +3,167 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Teste Romântico Nerdola</title>
+  <title>Jogo do Mario - Teste Romântico</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-    :root {
-      --bg: #ffe6f0;
-      --text: #4d4d4d;
-      --button-bg: #ff85b8;
-      --button-hover: #ff5ca8;
-      --button-text: #fff;
-      --border-radius: 16px;
-    }
-
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
     }
 
     body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: var(--bg);
-      color: var(--text);
+      background-color: #87CEEB; /* Céu azul claro */
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 24px;
+      min-height: 100vh;
+      overflow: hidden;
     }
 
-    .container {
-      background: white;
-      padding: 32px 36px;
-      max-width: 480px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 12px 32px rgba(255, 105, 180, 0.25);
-      text-align: center;
+    #gameContainer {
+      width: 800px;
+      height: 400px;
+      background-color: #228B22; /* Cor do fundo (grama) */
+      position: relative;
+      overflow: hidden;
     }
 
-    h1 {
-      font-weight: 700;
-      font-size: 2.4rem;
-      margin-bottom: 8px;
-      color: #ff4d94;
+    #player {
+      width: 50px;
+      height: 50px;
+      background-color: red; /* Personagem Mario */
+      position: absolute;
+      bottom: 50px; /* Posição na base da tela */
+      left: 50px;
+      border-radius: 5px;
     }
 
-    p {
-      font-size: 1.15rem;
-      margin-bottom: 24px;
-      line-height: 1.5;
+    .coin {
+      width: 30px;
+      height: 30px;
+      background-color: yellow; /* Moeda */
+      border-radius: 50%;
+      position: absolute;
+      animation: fall 3s infinite;
     }
 
-    button {
-      background-color: var(--button-bg);
-      border: none;
-      border-radius: var(--border-radius);
-      color: var(--button-text);
-      padding: 14px 24px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+    @keyframes fall {
+      from {
+        top: -30px;
+      }
+      to {
+        top: 400px;
+      }
     }
 
-    button:hover {
-      background-color: var(--button-hover);
+    .platform {
+      width: 100%;
+      height: 20px;
+      background-color: #8B4513; /* Cor da plataforma */
+      position: absolute;
+      bottom: 0;
     }
 
     .hidden {
       display: none;
     }
-
-    .music-player {
-      width: 100%;
-      height: 80px;
-      margin-bottom: 15px;
-    }
-
-    .quiz-question {
-      margin-bottom: 24px;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
-
-    .answers {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px 0;
-    }
-
-    .answers li {
-      background: #ffe6f0;
-      border: 2px solid transparent;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      padding: 12px 16px;
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-      font-weight: 500;
-    }
-
-    .answers li:hover {
-      border-color: #ff4d94;
-    }
-
-    .answers li.selected {
-      border-color: #ff1a75;
-      background: #ffccd9;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Tela de Introdução -->
-  <div class="container" id="intro">
-    <h1>TESTANDO NERDOLA</h1>
-    <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
-    <p><strong>Mas antes de começar, solte o som aí!</strong></p>
-
-    <!-- Player de Música -->
-    <iframe class="music-player" src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
-
-    <p><strong><a href="https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO" target="_blank" rel="noopener noreferrer">Clique aqui para ouvir "É Amor" no Spotify 💗</a></strong></p>
-
-    <button id="startListeningBtn">Já estou ouvindo</button>
-  </div>
-
-  <!-- Tela do Quiz -->
-  <div class="container hidden" id="quiz">
-    <div id="questionContainer"></div>
-    <button id="nextBtn" class="hidden">Próxima</button>
-  </div>
-
-  <!-- Tela do Resultado -->
-  <div class="container hidden" id="result">
-    <div class="result-text" id="scoreText"></div>
-    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever? <strong>Yes</strong> ou <strong>Claro que yes?</strong></p>
-    <button id="finalBtn">Mostrar mensagem especial</button>
-  </div>
-
-  <!-- Mensagem Final -->
-  <div class="container hidden" id="finalMessage">
-    <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.</p>
-    <p>Te amo e te honro, branquelo! 💖</p>
-    <p id="finalScore"></p>
+  <div id="gameContainer">
+    <div id="player"></div>
+    <div class="platform"></div>
   </div>
 
   <script>
-    const startListeningBtn = document.getElementById('startListeningBtn');
-    const intro = document.getElementById('intro');
-    const quiz = document.getElementById('quiz');
-    const questionContainer = document.getElementById('questionContainer');
-    const nextBtn = document.getElementById('nextBtn');
-    const result = document.getElementById('result');
-    const scoreText = document.getElementById('scoreText');
-    const finalBtn = document.getElementById('finalBtn');
-    const finalMessage = document.getElementById('finalMessage');
-    const finalScore = document.getElementById('finalScore');
-
-    const questions = [
-      {
-        question: "Qual item não faltaria no meu café da manhã?",
-        answers: [
-          { text: "Mucilon", correct: false },
-          { text: "Nestow", correct: true },
-          { text: "Sucrilhos", correct: false },
-          { text: "Farinha de Aveia", correct: false }
-        ]
-      },
-      {
-        question: "Quais das cores eu mais gosto no momento?",
-        answers: [
-          { text: "Rosa claro", correct: true },
-          { text: "Branco", correct: false },
-          { text: "Preto", correct: false },
-          { text: "Turquesa", correct: false },
-          { text: "Azul", correct: false }
-        ]
-      },
-      {
-        question: "Top coisas que nunca deixaria de assistir?",
-        answers: [
-          { text: "Novela", correct: true },
-          { text: "Série", correct: false },
-          { text: "Filmes", correct: false },
-          { text: "Desenhos animados", correct: false },
-          { text: "Anime", correct: false }
-        ]
-      }
-    ];
-
-    let currentQuestionIndex = 0;
+    const player = document.getElementById('player');
+    const gameContainer = document.getElementById('gameContainer');
+    let isJumping = false;
     let score = 0;
 
-    // Função que começa o quiz quando o botão for clicado
-    startListeningBtn.addEventListener('click', () => {
-      intro.classList.add('hidden');
-      quiz.classList.remove('hidden');
-      showQuestion();
-    });
+    // Movimentos do jogador
+    let playerX = 50;  // Posição inicial X
+    const moveSpeed = 5;  // Velocidade de movimento
 
-    // Função para exibir a próxima questão
-    function showQuestion() {
-      resetState();
-      const currentQuestion = questions[currentQuestionIndex];
-      const questionElement = document.createElement('div');
-      questionElement.classList.add('quiz-question');
-      questionElement.textContent = currentQuestion.question;
-      questionContainer.appendChild(questionElement);
-
-      const answersList = document.createElement('ul');
-      answersList.classList.add('answers');
-
-      currentQuestion.answers.forEach(answer => {
-        const li = document.createElement('li');
-        li.textContent = answer.text;
-        li.addEventListener('click', () => selectAnswer(li, answer.correct));
-        answersList.appendChild(li);
-      });
-
-      questionContainer.appendChild(answersList);
+    // Função para mover o jogador
+    function movePlayer(event) {
+      if (event.key === "ArrowRight") {
+        playerX += moveSpeed;
+        if (playerX + 50 <= gameContainer.clientWidth) {
+          player.style.left = playerX + "px";
+        }
+      }
+      if (event.key === "ArrowLeft") {
+        playerX -= moveSpeed;
+        if (playerX >= 0) {
+          player.style.left = playerX + "px";
+        }
+      }
+      if (event.key === "ArrowUp" && !isJumping) {
+        jump();
+      }
     }
 
-    // Função para selecionar uma resposta
-    function selectAnswer(li, isCorrect) {
-      li.classList.add('selected');
-
-      if (isCorrect) {
-        score++;
-      }
-
-      // Mostrar botão de próxima pergunta
-      nextBtn.classList.remove('hidden');
+    // Função para o pulo
+    function jump() {
+      isJumping = true;
+      let jumpHeight = 0;
+      const jumpInterval = setInterval(() => {
+        if (jumpHeight >= 100) {
+          clearInterval(jumpInterval);
+          fall();
+        }
+        jumpHeight += 5;
+        player.style.bottom = 50 + jumpHeight + 'px';
+      }, 20);
     }
 
-    // Função para mostrar a próxima pergunta ou o resultado final
-    nextBtn.addEventListener('click', () => {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < questions.length) {
-        showQuestion();
-        nextBtn.classList.add('hidden');
-      } else {
-        showResult();
-      }
-    });
+    // Função para a queda após o pulo
+    function fall() {
+      let fallHeight = 100;
+      const fallInterval = setInterval(() => {
+        if (fallHeight <= 0) {
+          clearInterval(fallInterval);
+          isJumping = false;
+        }
+        fallHeight -= 5;
+        player.style.bottom = 50 + fallHeight + 'px';
+      }, 20);
+    }
 
-    // Função para mostrar o resultado final
-    function showResult() {
-      quiz.classList.add('hidden');
-      result.classList.remove('hidden');
-      scoreText.textContent = `Sua pontuação: ${score} de ${questions.length}`;
+    // Função para criar e animar moedas
+    function spawnCoin() {
+      const coin = document.createElement('div');
+      coin.classList.add('coin');
+      coin.style.left = Math.random() * (gameContainer.clientWidth - 30) + 'px';  // Posição aleatória
+      gameContainer.appendChild(coin);
 
-      // Exibindo a mensagem
+      // Verificar colisão com a moeda
+      const coinInterval = setInterval(() => {
+        if (isCollision(player, coin)) {
+          score++;
+          console.log("Pontuação: " + score);
+          coin.remove(); // Remove a moeda ao pegar
+        }
+      }, 10);
+    }
+
+    // Verificar colisão entre o jogador e a moeda
+    function isCollision(player, coin) {
+      const playerRect = player.getBoundingClientRect();
+      const coinRect = coin.getBoundingClientRect();
+      return !(playerRect.right < coinRect.left ||
+               playerRect.left > coinRect.right ||
+               playerRect.bottom < coinRect.top ||
+               playerRect.top > coinRect.bottom);
+    }
+
+    // Adicionar a lógica para o jogo
+    document.addEventListener('keydown', movePlayer);
+
+    // Gerar moedas aleatórias
+    setInterval(spawnCoin, 2000); // Uma moeda a cada 2 segundos
+  </script>
+</body>
+</html>
