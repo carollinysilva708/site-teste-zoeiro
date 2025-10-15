@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Aviso de Segurança</title>
 <style>
-  /* Seu CSS aqui, mantive como estava */
   :root{
     --bg:#0b0f1a;
     --panel:#0f1724;
@@ -131,6 +130,7 @@
 </style>
 </head>
 <body>
+
   <div class="card" role="application" aria-labelledby="title">
     <div class="top">
       <div style="display:flex;gap:8px;align-items:center">
@@ -194,59 +194,51 @@
   <audio id="trollsong" src="https://cdn.glitch.global/0ec0f739-f7cd-4863-8973-01e0d4aa38da/thubirau.mp3?v=1694452421470" preload="auto"></audio>
 
 <script>
-  // Elementos do DOM
-  const log = document.getElementById('log');
-  const proc = document.getElementById('proc');
-  const pid = document.getElementById('pid');
-  const ip = document.getElementById('ip');
-  const time = document.getElementById('time');
-  const status = document.getElementById('status');
-  const fixBtn = document.getElementById('fixBtn');
-  const safeBtn = document.getElementById('safeBtn');
-  const countdownEl = document.getElementById('countdown');
-  const revealPane = document.getElementById('revealPane');
-  const againBtn = document.getElementById('again');
-  const audio = document.getElementById('trollsong');
-
-  // Atualiza o horário no topo
+  // Atualiza o relógio na interface
   function updateTime(){
+    const time = document.getElementById('time');
     const d = new Date();
     time.textContent = d.toLocaleTimeString();
   }
   updateTime();
   setInterval(updateTime, 30000);
 
-  // Variáveis para simulação
-  const procs = ['sync_service.exe','mailindexer.dll','unnamed_process.exe','agent_worker','updater_run'];
-  const ips = ['192.168.0.23','84.21.10.5','10.0.0.42','172.16.12.9','203.0.113.77'];
-  let step = 0;
+  // Configurações dos elementos
+  const fixBtn = document.getElementById('fixBtn');
+  const log = document.getElementById('log');
+  const revealPane = document.getElementById('revealPane');
+  const trollsong = document.getElementById('trollsong');
+  const againBtn = document.getElementById('again');
 
-  // Linhas da simulação para o log
-  const lines = [
-    "Detectando tráfego incomum na porta 443...",
-    "Escaneando módulos carregados...",
-    "Comparando assinaturas... não correspondência",
-    "Tentando isolar processo suspeito...",
-    "Tentativa de bloqueio de rede: 1/3",
-    "Tentativa de bloqueio de rede: 2/3",
-    "Tentativa de bloqueio de rede: 3/3",
-    "Isolamento falhou — requisição de correção manual necessária"
+  // Mensagens de "correção"
+  const fixSteps = [
+    "Iniciando correção automática...",
+    "Reparando arquivos corrompidos...",
+    "Restaurando configurações do sistema...",
+    "Finalizando processo de correção...",
+    "Correção concluída com sucesso!"
   ];
 
-  // Função para adicionar linhas ao log
-  function appendLine(t){
-    log.innerHTML += t + "<br>";
-    log.scrollTop = log.scrollHeight;
-  }
+  // Evento ao clicar em "Tentar corrigir agora"
+  fixBtn.addEventListener('click', () => {
+    let i = 0;
+    log.innerHTML = ''; // limpa o log
 
-  // Função que mostra a mensagem final e toca o áudio
-  function showReveal(){
-    revealPane.style.display = 'block';
-    audio.play(); // toca a música só aqui
-  }
+    function nextStep() {
+      if(i < fixSteps.length) {
+        log.innerHTML += fixSteps[i] + '<br>';
+        i++;
+        setTimeout(nextStep, 1500);
+      } else {
+        revealPane.style.display = 'block';  // mostra a mensagem final
+        trollsong.play();                     // toca a música
+      }
+    }
 
-  // Função para reiniciar a zoeira
-  function reset(){
-    step = 0;
-    log.innerHTML = `Iniciando verificação do sistema...<br>
-    Checando portas de rede... OK<br>
+    nextStep();
+  });
+
+  // Evento para o botão "Fazer de novo"
+  againBtn.addEventListener('click', () => {
+    revealPane.style.display = 'none';
+    log.innerHTML = 'Iniciando verificação do sistema...<br>Checando portas de rede... OK<br>Verifi
