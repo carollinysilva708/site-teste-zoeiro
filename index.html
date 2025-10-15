@@ -1,253 +1,267 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Teste Romântico do Player 2</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Teste Romântico Nerdola</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
   :root {
-    --bg: #f8c8dc; /* rosa claro */
-    --panel: #f4b6d3;
-    --accent: #7c3aed;
-    --muted: #cfd6e4;
-    --white-dark: #e0e0e0; /* branco mais escuro para leitura */
-    --button-bg: #ff69b4; /* rosa forte */
+    --bg: #ffe6f0; /* rosa clarinho */
+    --text: #4d4d4d; /* branco mais escuro, um cinza para melhor leitura */
+    --button-bg: #ff85b8;
+    --button-hover: #ff5ca8;
     --button-text: #fff;
+    --border-radius: 16px;
   }
+
   * {
     box-sizing: border-box;
-    font-family: 'Inter', system-ui, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
   }
+
   body {
     margin: 0;
     min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--text);
     display: flex;
-    align-items: center;
     justify-content: center;
-    background: var(--bg);
-    color: var(--white-dark);
+    align-items: center;
     padding: 24px;
   }
-  .card {
-    width: 760px;
-    max-width: 96%;
-    border-radius: 12px;
-    background: var(--panel);
-    box-shadow: 0 20px 60px rgba(2,6,23,0.3);
-    overflow: hidden;
-    padding: 28px;
+
+  .container {
+    background: white;
+    padding: 32px 36px;
+    max-width: 480px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 12px 32px rgba(255, 105, 180, 0.25);
     text-align: center;
   }
-  h1, h2, h3, p {
-    margin: 0 0 1rem 0;
-  }
+
   h1 {
-    font-size: 2.5rem;
     font-weight: 700;
-    color: var(--button-bg);
-  }
-  .intro, .final-message, .result, #quizSection {
-    font-size: 1.2rem;
-    color: var(--white-dark);
-  }
-  #quizSection {
-    display: none;
-    text-align: left;
-  }
-  .question {
-    margin-bottom: 20px;
-  }
-  .question-text {
-    font-weight: 600;
-    margin-bottom: 12px;
-    font-size: 1.1rem;
-  }
-  .options {
-    list-style: none;
-    padding: 0;
-  }
-  .options li {
+    font-size: 2.4rem;
     margin-bottom: 8px;
+    color: #ff4d94;
   }
-  label {
-    cursor: pointer;
-    user-select: none;
-    font-size: 1rem;
-    color: var(--white-dark);
+
+  p {
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
   }
-  input[type="radio"] {
-    margin-right: 8px;
-  }
+
   button {
     background-color: var(--button-bg);
-    color: var(--button-text);
     border: none;
-    padding: 12px 28px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
+    color: var(--button-text);
+    padding: 14px 24px;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
   }
+
   button:hover {
-    background-color: #ff85c1;
+    background-color: var(--button-hover);
   }
-  .choice-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+
+  .hidden {
+    display: none;
+  }
+
+  .quiz-question {
+    margin-bottom: 24px;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  .answers {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
+  .answers li {
+    background: #ffe6f0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    font-weight: 500;
+  }
+
+  .answers li:hover {
+    border-color: #ff4d94;
+  }
+
+  .answers li.selected {
+    border-color: #ff1a75;
+    background: #ffccd9;
+  }
+
+  .result-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #d6006c;
+  }
+
+  .final-message {
+    font-size: 1.15rem;
     margin-top: 16px;
-  }
-  .choice-buttons button {
-    width: 140px;
-  }
-  audio {
-    width: 100%;
-    max-width: 600px;
-    border-radius: 8px;
-    margin: 16px auto 24px auto;
-    outline: none;
+    color: var(--text);
   }
 </style>
 </head>
 <body>
-  <div class="card" role="main">
+  <div class="container" id="intro">
     <h1>TESTANDO NERDOLA</h1>
-    <p class="intro">Esse é um teste para ver se você serve para me amar a vida toda<br>Mas antes de começar, solte o som aí 🎵</p>
+    <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
+    <p><strong>Mas antes de começar, solte o som aí!</strong></p>
+    <audio id="music" src="https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86" preload="auto"></audio>
+    <button id="startListeningBtn">Já estou ouvindo</button>
+  </div>
 
-    <audio id="spotifyAudio" controls autoplay loop>
-      <source src="https://p.scdn.co/mp3-preview/5d84e2d7e3e236880264ce79d1b14d15e7f9ad61?cid=774b29d4f13844c495f206cafdad9c86" type="audio/mpeg">
-      Seu navegador não suporta o elemento de áudio.
-    </audio>
+  <div class="container hidden" id="quiz">
+    <div id="questionContainer"></div>
+    <button id="nextBtn" class="hidden">Próxima</button>
+  </div>
 
-    <button id="startBtn">Já estou ouvindo</button>
+  <div class="container hidden" id="result">
+    <div class="result-text" id="scoreText"></div>
+    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever? <strong>Yes</strong> ou <strong>Claro que yes?</strong></p>
+    <button id="finalBtn">Mostrar mensagem especial</button>
+  </div>
 
-    <section id="quizSection" aria-label="Quiz de compatibilidade romântica">
-      <form id="quizForm">
-        <div class="question" data-correct="Nestow">
-          <p class="question-text">1. Qual item não faltaria no meu café da manhã?</p>
-          <ul class="options">
-            <li><label><input type="radio" name="q1" value="Mucilon" required> Mucilon</label></li>
-            <li><label><input type="radio" name="q1" value="Nestow"> Nestow</label></li>
-            <li><label><input type="radio" name="q1" value="Sucrilhos"> Sucrilhos</label></li>
-            <li><label><input type="radio" name="q1" value="Farinha de Aveia"> Farinha de Aveia</label></li>
-          </ul>
-        </div>
-
-        <div class="question" data-correct="Rosa claro">
-          <p class="question-text">2. Quais das cores eu mais gosto no momento?</p>
-          <ul class="options">
-            <li><label><input type="radio" name="q2" value="Rosa claro" required> Rosa claro</label></li>
-            <li><label><input type="radio" name="q2" value="Branco"> Branco</label></li>
-            <li><label><input type="radio" name="q2" value="Preto"> Preto</label></li>
-            <li><label><input type="radio" name="q2" value="Turquesa"> Turquesa</label></li>
-            <li><label><input type="radio" name="q2" value="Azul"> Azul</label></li>
-          </ul>
-        </div>
-
-        <div class="question" data-correct="Novela">
-          <p class="question-text">3. Top coisas que nunca deixaria de assistir?</p>
-          <ul class="options">
-            <li><label><input type="radio" name="q3" value="Novela" required> Novela</label></li>
-            <li><label><input type="radio" name="q3" value="Serie"> Série</label></li>
-            <li><label><input type="radio" name="q3" value="Filmes"> Filmes</label></li>
-            <li><label><input type="radio" name="q3" value="Desenhos animados"> Desenhos animados</label></li>
-            <li><label><input type="radio" name="q3" value="Anime"> Anime</label></li>
-          </ul>
-        </div>
-
-        <button type="submit">Enviar respostas</button>
-      </form>
-
-      <div id="scoreSection" class="result" style="display:none;">
-        <p id="scoreText"></p>
-        <p id="finalQuestion">Eu já te quero para vida toda mesmo! Topa ser meu player dois forever?</p>
-        <div class="choice-buttons">
-          <button id="btnYes">Yes</button>
-          <button id="btnClaro">Claro que yes</button>
-        </div>
-      </div>
-
-      <div id="loveMessage" class="final-message" style="display:none;">
-        <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.<br>Te amo e te honro, branquelo! 💖</p>
-        <p id="finalScoreSummary"></p>
-      </div>
-    </section>
+  <div class="container hidden" id="finalMessage">
+    <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.</p>
+    <p>Te amo e te honro, branquelo! 💖</p>
+    <p id="finalScore"></p>
   </div>
 
 <script>
-  const startBtn = document.getElementById('startBtn');
-  const quizSection = document.getElementById('quizSection');
-  const quizForm = document.getElementById('quizForm');
-  const scoreSection = document.getElementById('scoreSection');
+  const music = document.getElementById('music');
+  const startListeningBtn = document.getElementById('startListeningBtn');
+  const intro = document.getElementById('intro');
+  const quiz = document.getElementById('quiz');
+  const questionContainer = document.getElementById('questionContainer');
+  const nextBtn = document.getElementById('nextBtn');
+  const result = document.getElementById('result');
   const scoreText = document.getElementById('scoreText');
-  const finalScoreSummary = document.getElementById('finalScoreSummary');
-  const loveMessage = document.getElementById('loveMessage');
-  const btnYes = document.getElementById('btnYes');
-  const btnClaro = document.getElementById('btnClaro');
-  const audio = document.getElementById('spotifyAudio');
+  const finalBtn = document.getElementById('finalBtn');
+  const finalMessage = document.getElementById('finalMessage');
+  const finalScore = document.getElementById('finalScore');
 
-  startBtn.addEventListener('click', () => {
-    // Esconde introdução
-    startBtn.style.display = 'none';
-    document.querySelector('.intro').style.display = 'none';
-    document.querySelector('h1').style.display = 'none';
+  const questions = [
+    {
+      question: "Qual item não faltaria no meu café da manhã?",
+      answers: [
+        { text: "Mucilon", correct: false },
+        { text: "Nestow", correct: true },
+        { text: "Sucrilhos", correct: false },
+        { text: "Farinha de Aveia", correct: false }
+      ]
+    },
+    {
+      question: "Quais das cores eu mais gosto no momento?",
+      answers: [
+        { text: "Rosa claro", correct: true },
+        { text: "Branco", correct: false },
+        { text: "Preto", correct: false },
+        { text: "Turquesa", correct: false },
+        { text: "Azul", correct: false }
+      ]
+    },
+    {
+      question: "Top coisas que nunca deixaria de assistir?",
+      answers: [
+        { text: "Novela", correct: true },
+        { text: "Série", correct: false },
+        { text: "Filmes", correct: false },
+        { text: "Desenhos animados", correct: false },
+        { text: "Anime", correct: false }
+      ]
+    }
+  ];
 
-    // Exibe quiz
-    quizSection.style.display = 'block';
+  let currentQuestionIndex = 0;
+  let score = 0;
 
-    // Garante que o áudio esteja tocando
-    audio.play().catch(() => {
-      // Caso navegador bloqueie autoplay, pode clicar no startBtn para liberar som
-    });
+  startListeningBtn.addEventListener('click', () => {
+    music.play();
+    intro.classList.add('hidden');
+    quiz.classList.remove('hidden');
+    showQuestion();
   });
 
-  quizForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const questions = quizForm.querySelectorAll('.question');
-    let correctAnswers = 0;
-    let total = questions.length;
-
-    questions.forEach(q => {
-      const correct = q.getAttribute('data-correct');
-      const selected = quizForm.querySelector(`input[name="${q.querySelector('input').name}"]:checked`);
-      if (selected && selected.value === correct) {
-        correctAnswers++;
-      }
-    });
-
-    const percent = Math.round((correctAnswers / total) * 100);
-    scoreText.textContent = `Você acertou ${correctAnswers} de ${total} perguntas (${percent}%).`;
-
-    quizForm.style.display = 'none';
-    scoreSection.style.display = 'block';
-
-    btnYes.focus();
+  nextBtn.addEventListener('click', () => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      showQuestion();
+    } else {
+      showResult();
+    }
   });
 
-  function showLoveMessage() {
-    scoreSection.style.display = 'none';
-    loveMessage.style.display = 'block';
+  finalBtn.addEventListener('click', () => {
+    result.classList.add('hidden');
+    finalMessage.classList.remove('hidden');
+    finalScore.textContent = `Você acertou ${score} de ${questions.length} perguntas (${Math.round((score / questions.length) * 100)}%).`;
+  });
 
-    const questions = quizForm.querySelectorAll('.question');
-    let correctAnswers = 0;
-    let total = questions.length;
+  function showQuestion() {
+    resetState();
+    nextBtn.classList.add('hidden');
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionElement = document.createElement('div');
+    questionElement.classList.add('quiz-question');
+    questionElement.textContent = currentQuestion.question;
+    questionContainer.appendChild(questionElement);
 
-    questions.forEach(q => {
-      const correct = q.getAttribute('data-correct');
-      const selected = quizForm.querySelector(`input[name="${q.querySelector('input').name}"]:checked`);
-      if (selected && selected.value === correct) {
-        correctAnswers++;
-      }
+    const answersList = document.createElement('ul');
+    answersList.classList.add('answers');
+
+    currentQuestion.answers.forEach(answer => {
+      const li = document.createElement('li');
+      li.textContent = answer.text;
+      li.addEventListener('click', () => selectAnswer(li, answer.correct));
+      answersList.appendChild(li);
     });
 
-    const percent = Math.round((correctAnswers / total) * 100);
-    finalScoreSummary.textContent = `Você acertou ${correctAnswers} de ${total} perguntas (${percent}%).`;
+    questionContainer.appendChild(answersList);
   }
 
-  btnYes.addEventListener('click', showLoveMessage);
-  btnClaro.addEventListener('click', showLoveMessage);
+  function resetState() {
+    nextBtn.classList.add('hidden');
+    while (questionContainer.firstChild) {
+      questionContainer.removeChild(questionContainer.firstChild);
+    }
+  }
+
+  function selectAnswer(selectedLi, isCorrect) {
+    const answers = questionContainer.querySelectorAll('li');
+    answers.forEach(li => {
+      li.classList.remove('selected');
+      li.style.pointerEvents = 'none'; // bloqueia múltiplos cliques
+    });
+    selectedLi.classList.add('selected');
+    if (isCorrect) score++;
+    nextBtn.classList.remove('hidden');
+  }
+
+  function showResult() {
+    quiz.classList.add('hidden');
+    scoreText.textContent = `Você acertou ${Math.round((score / questions.length) * 100)}% das perguntas!`;
+    result.classList.remove('hidden');
+  }
 </script>
 </body>
 </html>
