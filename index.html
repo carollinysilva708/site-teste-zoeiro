@@ -1,246 +1,132 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Aviso de Segurança</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uma mensagem pra você 💖</title>
   <style>
-    :root{
-      --bg:#0b0f1a;
-      --panel:#0f1724;
-      --danger:#ff3b3b;
-      --accent:#7c3aed;
-      --muted:#9aa7c7;
-    }
-    *{box-sizing:border-box;font-family:Inter, system-ui, Arial, sans-serif}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background: radial-gradient(circle at 20% 10%, #0f1b2d 0%, #071021 40%, #00080c 100%);
-      color:#e6eef8;
-      padding:24px;
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffcde5, #ffe5f7);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      overflow-x: hidden;
     }
 
-    .card{
-      width:760px;
-      max-width:96%;
-      border-radius:12px;
-      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      box-shadow: 0 20px 60px rgba(2,6,23,0.8);
-      overflow:hidden;
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
     }
 
-    .top{
-      padding:20px;
-      display:flex;
-      gap:16px;
-      align-items:center;
-      border-bottom:1px solid rgba(255,255,255,0.03);
-    }
-    .dot{width:12px;height:12px;border-radius:50%}
-    .dot.red{background:var(--danger)}
-    .dot.yellow{background:#ffd166}
-    .dot.green{background:#2dd4bf}
-    .title{font-weight:700;font-size:18px}
-    .sub{color:var(--muted);font-size:13px}
-
-    .main{
-      display:flex;
-      gap:0;
+    p {
+      font-size: 1.2em;
+      margin: 0 20px 20px;
+      color: #fffafc;
     }
 
-    .left{
-      width:52%;
-      min-height:300px;
-      padding:28px;
-      border-right:1px solid rgba(255,255,255,0.02);
+    .hidden {
+      display: none;
     }
 
-    .right{
-      width:48%;
-      padding:28px;
+    .qr-code {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin: 20px auto;
     }
 
-    .alert{
-      background: linear-gradient(90deg, rgba(255,59,59,0.12), rgba(255,59,59,0.06));
-      padding:14px;
-      border-radius:8px;
-      color:var(--danger);
-      font-weight:700;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin-bottom:18px;
+    button {
+      background-color: #ff70a6;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1em;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 15px;
     }
 
-    .hackbox{
-      background:#020617;
-      border-radius:8px;
-      padding:12px;
-      color:#6be0ff;
-      font-family: "Courier New", monospace;
-      font-size:13px;
-      height:170px;
-      overflow:auto;
-      box-shadow: inset 0 0 24px rgba(0,120,200,0.03);
+    button:hover {
+      background-color: #ff3f7f;
     }
 
-    .controls{margin-top:18px;display:flex;gap:12px;align-items:center}
-    button{
-      border:0;padding:10px 14px;border-radius:8px;font-weight:700;cursor:pointer;
-      color:white;background:var(--accent);
-    }
-    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-    .fix{background:var(--danger);}
-
-    .status{
-      margin-top:10px;color:var(--muted);font-size:13px;
+    .message {
+      animation: fadeIn 1s ease forwards;
+      padding: 0 20px;
+      max-width: 600px;
     }
 
-    .countdown{
-      font-size:48px;
-      font-weight:800;
-      color:#ffd166;
-      margin-top:8px;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .reveal {
-      display:none;
-      padding:28px;
-      text-align:center;
-      animation:fadeIn 0.6s ease forwards;
-      background: linear-gradient(120deg, rgba(124,58,237,0.08), rgba(255,204,255,0.03));
-    }
-    .reveal h2{font-size:28px;margin:6px 0}
-    .reveal p{color:var(--muted);margin:6px 0 12px}
-
-    @keyframes fadeIn{
-      from {opacity:0; transform: translateY(8px)}
-      to {opacity:1; transform: translateY(0)}
+    .heart {
+      font-size: 48px;
+      animation: pulse 1.5s infinite;
     }
 
-    @media (max-width:720px){
-      .main{flex-direction:column}
-      .left,.right{width:100%}
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    a.spotify-link {
+      display: block;
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: white;
+      text-decoration: underline;
+    }
+
+    .intro {
+      transition: opacity 0.4s ease;
     }
   </style>
 </head>
 <body>
-  <div class="card" role="application" aria-labelledby="title">
-    <div class="top">
-      <div style="display:flex;gap:8px;align-items:center">
-        <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-      </div>
-      <div style="flex:1">
-        <div id="title" class="title">Alerta de Segurança do Sistema</div>
-        <div class="sub">Módulo de proteção em nível crítico — ação recomendada</div>
-      </div>
-      <div class="sub" id="time">—</div>
+
+  <div id="intro" class="intro">
+    <h1>Antes de tudo…</h1>
+    <p>Dá o play aí 🎶</p>
+
+    <div class="qr-code">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4V7ZZlcLGt1k5YTXZTSEgE&size=180x180" alt="QR Code para Spotify">
     </div>
 
-    <div class="main">
-      <div class="left">
-        <div class="alert">⚠️ Atividade não autorizada detectada</div>
+    <a class="spotify-link" href="https://open.spotify.com/track/4V7ZZlcLGt1k5YTXZTSEgE" target="_blank">
+      Ou clique aqui se estiver no PC 💗
+    </a>
 
-        <div class="hackbox" id="log">
-          Iniciando verificação do sistema...<br>
-          Checando portas de rede... OK<br>
-          Verificando processos em execução... OK<br>
-          Detectando conexões suspeitas... <span style="color:#ffd166">POSSÍVEL INJEÇÃO</span><br>
-          Tentando bloquear IPs... Falha intermitente<br>
-          Buscando arquivos abertos por processos desconhecidos...<br>
-        </div>
-
-        <div class="controls">
-          <button id="fixBtn" class="fix">Tentar corrigir agora</button>
-          <button id="safeBtn" class="ghost">Abrir modo seguro</button>
-        </div>
-
-        <div class="status" id="status">Status: intervenção manual recomendada.</div>
-      </div>
-
-      <div class="right">
-        <div style="font-weight:800">Detalhes</div>
-        <div style="margin-top:10px;color:var(--muted);font-size:14px">
-          Processo suspeito:
-          <div style="margin-top:8px;font-family:monospace;background:#020617;padding:10px;border-radius:8px;color:#9fe7ff">
-            <span id="proc">unnamed_process.exe</span><br>
-            PID: <span id="pid">0x4f2a</span><br>
-            Conexão: <span id="ip">--.--.--.--</span>
-          </div>
-
-          <div style="margin-top:14px;color:var(--muted);font-size:13px">
-            Você pode tentar recuperar automaticamente, mas isso pode reiniciar aplicações.
-            <div class="countdown" id="countdown" style="display:none">10</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="reveal" id="revealPane" role="status" aria-live="polite">
-      <div style="font-size:42px">🤭</div>
-      <h2>Você caiu na zoeira, mas te amo! 💖</h2>
-      <p>Prometo que nenhum dado foi coletado — era só uma brincadeira. 😅</p>
-      <button id="again">Fazer de novo</button>
-    </div>
+    <button id="revealBtn">Já estou ouvindo 💕</button>
   </div>
 
-  <audio id="trollsong" src="https://cdn.glitch.global/0ec0f739-f7cd-4863-8973-01e0d4aa38da/thubirau.mp3?v=1694452421470" preload="auto"></audio>
+  <div id="message" class="hidden message">
+    <div class="heart">💖</div>
+    <h2>Você caiu na minha armadilha romântica, nerdola 😎</h2>
+    <p>Quer ser meu player 2 pra sempre? 🎮💘</p>
+    <p>Brincadeira à parte, só fiz isso pra te dizer o quanto te amo e o quanto me sinto amada por você. 💞</p>
+    <p>Te amo e te honro, meu branquelo 💗</p>
+  </div>
 
   <script>
-    // Função para mostrar o horário no topo
-    function updateTime(){
-      const timeEl = document.getElementById('time');
-      const d = new Date();
-      timeEl.textContent = d.toLocaleTimeString();
-    }
-    updateTime();
-    setInterval(updateTime, 30000);
+    const btn = document.getElementById('revealBtn');
+    const msg = document.getElementById('message');
+    const intro = document.getElementById('intro');
 
-    const fixBtn = document.getElementById('fixBtn');
-    const log = document.getElementById('log');
-    const revealPane = document.getElementById('revealPane');
-    const trollsong = document.getElementById('trollsong');
-    const againBtn = document.getElementById('again');
-
-    const fixSteps = [
-      "Iniciando correção automática...",
-      "Reparando arquivos corrompidos...",
-      "Restaurando configurações do sistema...",
-      "Finalizando processo de correção...",
-      "Correção concluída com sucesso!"
-    ];
-
-    fixBtn.addEventListener('click', () => {
-      let i = 0;
-      log.innerHTML = ''; // limpa o log
-
-      function nextStep() {
-        if (i < fixSteps.length) {
-          log.innerHTML += fixSteps[i] + '<br>';
-          i++;
-          setTimeout(nextStep, 1500);
-        } else {
-          revealPane.style.display = 'block';
-          trollsong.play();
-        }
-      }
-
-      nextStep();
-    });
-
-    againBtn.addEventListener('click', () => {
-      revealPane.style.display = 'none';
-      log.innerHTML = `Iniciando verificação do sistema...<br>
-Checando portas de rede... OK<br>
-Verificando processos em execução... OK<br>
-Detectando conexões suspeitas... <span style="color:#ffd166">POSSÍVEL INJEÇÃO</span><br>
-Tentando bloquear IPs... Falha intermitente<br>
-Buscando arquivos...<br>`;
+    btn.addEventListener('click', () => {
+      intro.style.display = 'none';
+      msg.classList.remove('hidden');
     });
   </script>
+
 </body>
 </html>
