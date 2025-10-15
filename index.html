@@ -144,11 +144,6 @@
   .hidden-music {
     display: none;
   }
-  
-  #finalAnswerButtons button {
-    margin: 0 12px;
-    min-width: 120px;
-  }
 </style>
 </head>
 <body>
@@ -164,7 +159,7 @@
     <p><strong>Mas antes de começar, solte o som aí!</strong></p>
     
     <!-- Player do Spotify na introdução -->
-    <iframe src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <iframe id="spotifyPlayerIntro" src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     
     <button id="startListeningBtn">Já estou ouvindo</button>
   </div>
@@ -204,30 +199,33 @@
   const finalScore = document.getElementById('finalScore');
   const musicIcon = document.getElementById('musicIcon');
 
-  const questions = [
-    {
-      question: "Qual item não faltaria no meu café da manhã?",
-      answers: [
-        { text: "Mucilon", correct: false },
-        { text: "Nestow", correct: true },
-        { text: "Sucrilhos", correct: false },
-        { text: "Farinha de Aveia", correct: false }
-      ]
-    },
-    {
-      question: "Quais das cores eu mais gosto no momento?",
-      answers: [
-        { text: "Rosa claro", correct: true },
-        { text: "Branco", correct: false },
-        { text: "Preto", correct: false },
-        { text: "Turquesa", correct: false },
-        { text: "Azul", correct: false }
-      ]
-    },
-    {
-      question: "Top coisas que nunca deixaria de assistir?",
-      answers: [
-        { text: "Novela", correct: true },
-        { text: "Série", correct: false },
-        { text: "Filmes", correct: false },
-        { text: "Desenhos
+  const music = new Audio("https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86");
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+
+  startListeningBtn.addEventListener('click', () => {
+    // Tocar música
+    music.play();
+    
+    // Esconder introdução e mostrar quiz
+    intro.classList.add('hidden');
+    quiz.classList.remove('hidden');
+    musicIcon.classList.remove('hidden');
+    
+    showQuestion();
+  });
+
+  function showQuestion() {
+    resetState();
+    nextBtn.classList.add('hidden');
+    const currentQuestion = questions[currentQuestionIndex];
+    const questionElement = document.createElement('div');
+    questionElement.classList.add('quiz-question');
+    questionElement.textContent = currentQuestion.question;
+    questionContainer.appendChild(questionElement);
+
+    const answersList = document.createElement('ul');
+    answersList.classList.add('answers');
+
+    currentQuestion.answers.for
