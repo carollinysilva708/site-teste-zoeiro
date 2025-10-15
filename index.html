@@ -1,146 +1,166 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Teste Romântico Nerdola</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Teste Romântico Nerdola</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-    :root {
-      --bg: #ffe6f0; /* rosa clarinho */
-      --text: #4d4d4d; /* branco mais escuro, um cinza para melhor leitura */
-      --button-bg: #ff85b8;
-      --button-hover: #ff5ca8;
-      --button-text: #fff;
-      --border-radius: 16px;
-    }
+  :root {
+    --bg: #ffe6f0; /* rosa clarinho */
+    --text: #4d4d4d; /* branco mais escuro, um cinza para melhor leitura */
+    --button-bg: #ff85b8;
+    --button-hover: #ff5ca8;
+    --button-text: #fff;
+    --border-radius: 16px;
+  }
 
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+  * {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: var(--bg);
-      color: var(--text);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 24px;
-    }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 24px;
+    position: relative;
+  }
 
-    .container {
-      background: white;
-      padding: 32px 36px;
-      max-width: 480px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 12px 32px rgba(255, 105, 180, 0.25);
-      text-align: center;
-    }
+  .container {
+    background: white;
+    padding: 32px 36px;
+    max-width: 480px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 12px 32px rgba(255, 105, 180, 0.25);
+    text-align: center;
+  }
 
-    h1 {
-      font-weight: 700;
-      font-size: 2.4rem;
-      margin-bottom: 8px;
-      color: #ff4d94;
-    }
+  h1 {
+    font-weight: 700;
+    font-size: 2.4rem;
+    margin-bottom: 8px;
+    color: #ff4d94;
+  }
 
-    p {
-      font-size: 1.15rem;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
+  p {
+    font-size: 1.15rem;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
 
-    button {
-      background-color: var(--button-bg);
-      border: none;
-      border-radius: var(--border-radius);
-      color: var(--button-text);
-      padding: 14px 24px;
-      font-weight: 700;
-      font-size: 1.15rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
-    }
+  button {
+    background-color: var(--button-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--button-text);
+    padding: 14px 24px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+    margin: 0 8px 12px 8px;
+  }
 
-    button:hover {
-      background-color: var(--button-hover);
-    }
+  button:hover {
+    background-color: var(--button-hover);
+  }
 
-    .hidden {
-      display: none;
-    }
+  .hidden {
+    display: none;
+  }
 
-    .quiz-question {
-      margin-bottom: 24px;
-      font-weight: 600;
-      font-size: 1.2rem;
-    }
+  .quiz-question {
+    margin-bottom: 24px;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
 
-    .answers {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px 0;
-    }
+  .answers {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
 
-    .answers li {
-      background: #ffe6f0;
-      border: 2px solid transparent;
-      border-radius: 12px;
-      margin-bottom: 12px;
-      padding: 12px 16px;
-      cursor: pointer;
-      transition: border-color 0.3s ease;
-      font-weight: 500;
-    }
+  .answers li {
+    background: #ffe6f0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    font-weight: 500;
+  }
 
-    .answers li:hover {
-      border-color: #ff4d94;
-    }
+  .answers li:hover {
+    border-color: #ff4d94;
+  }
 
-    .answers li.selected {
-      border-color: #ff1a75;
-      background: #ffccd9;
-    }
+  .answers li.selected {
+    border-color: #ff1a75;
+    background: #ffccd9;
+  }
 
-    .result-text {
-      font-size: 1.25rem;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: #d6006c;
-    }
+  .result-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: #d6006c;
+  }
 
-    .final-message {
-      font-size: 1.15rem;
-      margin-top: 16px;
-      color: var(--text);
-    }
+  .final-message {
+    font-size: 1.15rem;
+    margin-top: 16px;
+    color: var(--text);
+  }
 
-    .qr-code img {
-      width: 180px;
-      height: 180px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px #e91e63aa;
-      margin-bottom: 15px;
-    }
-  </style>
+  /* Adicionando o estilo para o ícone de música fixo */
+  .music-icon {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    width: 80px;
+    height: 80px;
+    opacity: 0.7;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .music-icon:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  /* Esconder o ícone quando necessário */
+  .hidden-music {
+    display: none;
+  }
+</style>
 </head>
 <body>
+  <!-- Ícone do player fixo -->
+  <div id="musicIcon" class="music-icon hidden">
+    <!-- Player do Spotify -->
+    <iframe src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="100" height="100" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+  </div>
+
   <div class="container" id="intro">
     <h1>TESTANDO NERDOLA</h1>
     <p>Esse é um teste para ver se você serve para me amar a vida toda.</p>
     <p><strong>Mas antes de começar, solte o som aí!</strong></p>
-
-    <div class="qr-code">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO&size=180x180" alt="QR Code para Spotify - É Amor Jorge & Mateus" />
-    </div>
-
-    <p><strong><a href="https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO" target="_blank" rel="noopener noreferrer">Clique aqui para ouvir "É Amor" no Spotify 💗</a></strong></p>
-
+    
+    <!-- Player do Spotify na introdução -->
+    <iframe id="spotifyPlayerIntro" src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    
     <button id="startListeningBtn">Já estou ouvindo</button>
   </div>
 
@@ -151,8 +171,11 @@
 
   <div class="container hidden" id="result">
     <div class="result-text" id="scoreText"></div>
-    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever? <strong>Yes</strong> ou <strong>Claro que yes?</strong></p>
-    <button id="finalBtn">Mostrar mensagem especial</button>
+    <p>Eu já te quero para vida toda mesmo! Topa ser meu player dois forever?</p>
+    <div id="finalAnswerButtons">
+      <button id="btnYes">Yes</button>
+      <button id="btnClaro">Claro que yes?</button>
+    </div>
   </div>
 
   <div class="container hidden" id="finalMessage">
@@ -169,64 +192,28 @@
   const nextBtn = document.getElementById('nextBtn');
   const result = document.getElementById('result');
   const scoreText = document.getElementById('scoreText');
-  const finalBtn = document.getElementById('finalBtn');
+  const finalAnswerButtons = document.getElementById('finalAnswerButtons');
+  const btnYes = document.getElementById('btnYes');
+  const btnClaro = document.getElementById('btnClaro');
   const finalMessage = document.getElementById('finalMessage');
   const finalScore = document.getElementById('finalScore');
+  const musicIcon = document.getElementById('musicIcon');
 
-  const questions = [
-    {
-      question: "Qual item não faltaria no meu café da manhã?",
-      answers: [
-        { text: "Mucilon", correct: false },
-        { text: "Nestow", correct: true },
-        { text: "Sucrilhos", correct: false },
-        { text: "Farinha de Aveia", correct: false }
-      ]
-    },
-    {
-      question: "Quais das cores eu mais gosto no momento?",
-      answers: [
-        { text: "Rosa claro", correct: true },
-        { text: "Branco", correct: false },
-        { text: "Preto", correct: false },
-        { text: "Turquesa", correct: false },
-        { text: "Azul", correct: false }
-      ]
-    },
-    {
-      question: "Top coisas que nunca deixaria de assistir?",
-      answers: [
-        { text: "Novela", correct: true },
-        { text: "Série", correct: false },
-        { text: "Filmes", correct: false },
-        { text: "Desenhos animados", correct: false },
-        { text: "Anime", correct: false }
-      ]
-    }
-  ];
+  const music = new Audio("https://p.scdn.co/mp3-preview/8a65d8d2113ef4f6e69a0a4f57bfb42e48d6a576?cid=774b29d4f13844c495f206cafdad9c86");
 
   let currentQuestionIndex = 0;
   let score = 0;
 
   startListeningBtn.addEventListener('click', () => {
+    // Tocar música
+    music.play();
+    
+    // Esconder introdução e mostrar quiz
     intro.classList.add('hidden');
     quiz.classList.remove('hidden');
+    musicIcon.classList.remove('hidden');
+    
     showQuestion();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-      showQuestion();
-    } else {
-      showResult();
-    }
-  });
-
-  finalBtn.addEventListener('click', () => {
-    result.classList.add('hidden');
-    finalMessage.classList.remove('hidden');
-    finalScore.textContent = `Você acertou ${score} de ${questions.length} perguntas (${Math.round((score / questions.length) * 100)}%).`;
   });
 
   function showQuestion() {
@@ -241,14 +228,4 @@
     const answersList = document.createElement('ul');
     answersList.classList.add('answers');
 
-    currentQuestion.answers.forEach(answer => {
-      const li = document.createElement('li');
-      li.textContent = answer.text;
-      li.addEventListener('click', () => selectAnswer(li, answer.correct));
-      answersList.appendChild(li);
-    });
-
-    questionContainer.appendChild(answersList);
-  }
-
-  function
+    currentQuestion.answers.for
