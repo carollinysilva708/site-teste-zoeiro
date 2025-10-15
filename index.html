@@ -1,107 +1,182 @@
-<!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Armadilha Romântica</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Armadilha Romântica + Quiz</title>
 <style>
   body {
-    background: #fff0f6;
-    color: #c2185b;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
+    background: linear-gradient(135deg, #ffe6f0, #fff0f5);
+    font-family: 'Arial', sans-serif;
+    color: #fff; /* texto branco no geral */
+    margin: 0; padding: 20px;
+    display: flex; flex-direction: column; align-items: center;
     min-height: 100vh;
-    margin: 0;
   }
   h1 {
     font-size: 2.8rem;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
-  p {
-    font-size: 1.4rem;
-    max-width: 450px;
-    text-align: center;
-    margin: 10px 0 30px;
-  }
-  .qr-code img {
-    width: 180px;
-    height: 180px;
+  .spotify-player {
+    margin: 20px 0;
     border-radius: 12px;
-    box-shadow: 0 0 15px #e91e63aa;
+    box-shadow: 0 4px 20px rgba(255,105,180,0.3);
+  }
+  #quiz-container {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 40px;
+    box-shadow: 0 4px 15px rgba(255,105,180,0.3);
+    max-width: 480px;
+    width: 100%;
+    color: #800040; /* rosa escuro no quiz */
+  }
+  .question {
+    font-size: 1.4rem;
     margin-bottom: 15px;
   }
-  a.spotify-link {
-    font-size: 1.2rem;
-    color: #e91e63;
-    text-decoration: none;
-    font-weight: 700;
-    display: inline-block;
-    margin-bottom: 30px;
+  .options {
+    list-style: none;
+    padding: 0;
   }
-  a.spotify-link:hover {
-    text-decoration: underline;
+  .options li {
+    margin-bottom: 12px;
+  }
+  label {
+    cursor: pointer;
+    font-size: 1.2rem;
+    user-select: none;
+  }
+  input[type="radio"] {
+    margin-right: 12px;
+    cursor: pointer;
   }
   button {
-    background-color: #e91e63;
-    border: none;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-size: 1.3rem;
+    background: #ff66b2;
     color: white;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 24px;
     cursor: pointer;
-    font-weight: 700;
-    transition: background-color 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+    transition: background 0.3s ease;
   }
-  button:hover {
-    background-color: #ad1457;
+  button:hover:not(:disabled) {
+    background: #ff4d99;
   }
-  .message {
-    margin-top: 40px;
-    font-size: 1.5rem;
-    max-width: 500px;
+  button:disabled {
+    background: #ffb3d1;
+    cursor: not-allowed;
+  }
+  #result {
     text-align: center;
-    display: none;
-    color: #880e4f;
-    font-weight: 600;
-    line-height: 1.4;
-    white-space: pre-wrap;
+    margin-top: 30px;
+    color: #fff; /* texto branco na mensagem final */
+  }
+  #result h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  #result p {
+    font-size: 1.3rem;
   }
 </style>
 </head>
 <body>
 
-<h1>Você caiu na minha armadilha romântica, nerdola 😎</h1>
-<p>Escaneie o QR code ou clique no link para ouvir a música. Só prossegue quando estiver ouvindo, hein!</p>
+<h1>💖 Armadilha Romântica para o Nerdola 💖</h1>
 
-<div class="qr-code">
-  <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO&size=180x180" alt="QR Code para Spotify - É Amor Jorge & Mateus" />
+<div class="spotify-player">
+  <iframe src="https://open.spotify.com/embed/track/4CWRKwYu8WTrEBng1JsiIO?utm_source=generator" width="380" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 </div>
 
-<a class="spotify-link" href="https://open.spotify.com/track/4CWRKwYu8WTrEBng1JsiIO" target="_blank" rel="noopener noreferrer">
-  Clique aqui para ouvir "É Amor" no Spotify 💗
-</a>
+<div id="quiz-container">
+  <div id="quiz">
+    <!-- Perguntas serão inseridas aqui pelo JS -->
+  </div>
+  <button id="next-btn" disabled>Próxima</button>
+</div>
 
-<button id="proceedBtn">Já estou ouvindo</button>
-
-<div class="message" id="finalMessage">
-Você caiu na minha armadilha romântica, nerdola 😎
-Quer ser meu player 2 pra sempre?
-
-Brincadeira a parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você.  
-Te amo e te honro, branquelo 💖
+<div id="result" style="display:none;">
+  <h2>Você caiu na minha armadilha romântica, nerdola 😎</h2>
+  <p>Quer ser meu player 2 pra sempre?</p>
+  <p>Brincadeira à parte, só fiz isso para te dizer o quanto te amo e o quanto me sinto amada por você. Te amo e te honro, branquelo! 💖</p>
 </div>
 
 <script>
-  const btn = document.getElementById('proceedBtn');
-  const msg = document.getElementById('finalMessage');
+  const questions = [
+    {
+      question: "Qual item não faltaria no meu café da manhã?",
+      options: ["Mucilon", "Nestow", "Sucrilhos", "Farinha de Aveia"],
+      correct: 1 // Nestow
+    },
+    {
+      question: "Quais das cores eu mais gosto no momento?",
+      options: ["Rosa claro", "Branco", "Preto", "Turquesa", "Azul"],
+      correct: 0 // Rosa claro
+    },
+    {
+      question: "Top coisas que nunca deixaria de assistir?",
+      options: ["Novela", "Série", "Filmes", "Desenhos animados", "Anime"],
+      correct: 0 // Novela
+    }
+  ];
 
-  btn.addEventListener('click', () => {
-    btn.style.display = 'none';
-    msg.style.display = 'block';
+  let currentQuestion = 0;
+  let score = 0;
+
+  const quizEl = document.getElementById("quiz");
+  const nextBtn = document.getElementById("next-btn");
+  const resultEl = document.getElementById("result");
+
+  function showQuestion() {
+    nextBtn.disabled = true;
+    const q = questions[currentQuestion];
+    let html = `<div class="question">${q.question}</div><ul class="options">`;
+    q.options.forEach((opt, i) => {
+      html += `<li><label><input type="radio" name="option" value="${i}" />${opt}</label></li>`;
+    });
+    html += "</ul>";
+    quizEl.innerHTML = html;
+
+    const radios = document.querySelectorAll('input[name="option"]');
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        nextBtn.disabled = false;
+      });
+    });
+  }
+
+  function showResult() {
+    quizEl.style.display = "none";
+    nextBtn.style.display = "none";
+    resultEl.style.display = "block";
+
+    // Calcula % baseado no score / total * 100
+    const percent = Math.round((score / questions.length) * 100);
+    const percentMsg = document.createElement("p");
+    percentMsg.textContent = `Você acertou ${score} de ${questions.length} perguntas (${percent}%).`;
+    resultEl.appendChild(percentMsg);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    const selected = document.querySelector('input[name="option"]:checked');
+    if(!selected) return;
+    const answer = parseInt(selected.value);
+    if(answer === questions[currentQuestion].correct){
+      score++;
+    }
+    currentQuestion++;
+    if(currentQuestion < questions.length){
+      showQuestion();
+    } else {
+      showResult();
+    }
   });
+
+  // Inicia o quiz
+  showQuestion();
 </script>
 
 </body>
